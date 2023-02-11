@@ -4,6 +4,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    code = request.args.get('code')
-    state = request.args.get('state')
-    return code, state
+    if request.args:
+        code = request.args.get('code')
+        state = request.args.get('state')
+        return f'{code} {state}'
+    return 'Hello world'
