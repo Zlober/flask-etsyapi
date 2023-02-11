@@ -1,8 +1,8 @@
 from flask import Flask, request
-app = Flask(__name__)
+application = Flask(__name__)
 
 
-@app.route('/')
+@application.route('/')
 def index():
     if request.args:
         code = request.args.get('code')
