@@ -4,7 +4,6 @@ import dotenv
 import os
 
 
-
 app = Flask(__name__)
 dotenv.load_dotenv()
 client_id = os.getenv('client_id')
