@@ -1,11 +1,38 @@
-from flask import Flask, request
-application = Flask(__name__)
+from flask import Flask, request, redirect, session, url_for
+from requests_oauthlib import OAuth2Session
+import dotenv
+import os
 
 
-@application.route('/')
+
+app = Flask(__name__)
+dotenv.load_dotenv()
+client_id = os.getenv('client_id')
+client_secret = os.getenv('client_secret')
+auth_base_url = 'https://www.etsy.com/oauth/connect'
+token_url = 'https://api.etsy.com/v3/public/oauth/token'
+
+
+@app.route('/')
 def index():
-    if request.args:
-        code = request.args.get('code')
-        state = request.args.get('state')
-        return f'{code} {state}'
-    return 'Hello world'
+    etsy = OAuth2Session(client_id)
+    auth_url, state = etsy.authorization_url(auth_base_url)
+    session['oauth_state'] = state
+    return redirect(auth_url)
+
+
+@app.route('/callback', method=["GET"])
+def callback():
+    etsy = OAuth2Session(client_id, state=session['oauth_state'])
+    token = etsy.fetch_token(
+        token_url,
+        client_secret=client_secret,
+        authorization_response=request.url,
+    )
+    session['oauth_token'] = token
+    return redirect(url_for('.profile'))
+
+
+@app.route('/profile', method=['GET'])
+def profile():
+    return session
