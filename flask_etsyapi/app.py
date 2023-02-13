@@ -20,7 +20,7 @@ def index():
     return redirect(auth_url)
 
 
-@app.route('/callback', method=["GET"])
+@app.route('/callback', methods=["GET"])
 def callback():
     etsy = OAuth2Session(client_id, state=session['oauth_state'])
     token = etsy.fetch_token(
@@ -32,7 +32,7 @@ def callback():
     return redirect(url_for('.profile'))
 
 
-@app.route('/profile', method=['GET'])
+@app.route('/profile', methods=['GET'])
 def profile():
     return session
 
