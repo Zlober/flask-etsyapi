@@ -5,7 +5,7 @@ import os
 
 
 app = Flask(__name__)
-dotenv.load_dotenv()
+dotenv.load_dotenv(dotenv.find_dotenv())
 client_id = os.getenv('client_id')
 client_secret = os.getenv('client_secret')
 auth_base_url = 'https://www.etsy.com/oauth/connect'
