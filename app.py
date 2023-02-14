@@ -4,8 +4,8 @@ import dotenv
 import os
 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+application = Flask(__name__)
+application.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 dotenv.load_dotenv(dotenv.find_dotenv())
 client_id = os.getenv('client_id')
 client_secret = os.getenv('client_secret')
@@ -13,7 +13,7 @@ auth_base_url = 'https://www.etsy.com/oauth/connect'
 token_url = 'https://api.etsy.com/v3/public/oauth/token'
 
 
-@app.route('/')
+@application.route('/')
 def index():
     etsy = OAuth2Session(client_id)
     auth_url, state = etsy.authorization_url(auth_base_url)
@@ -21,7 +21,7 @@ def index():
     return redirect(auth_url)
 
 
-@app.route('/callback', methods=["GET"])
+@application.route('/callback', methods=["GET"])
 def callback():
     etsy = OAuth2Session(client_id, state=session['oauth_state'])
     token = etsy.fetch_token(
@@ -33,7 +33,7 @@ def callback():
     return redirect(url_for('.profile'))
 
 
-@app.route('/profile', methods=['GET'])
+@application.route('/profile', methods=['GET'])
 def profile():
     return session
 
@@ -41,4 +41,4 @@ def profile():
 if __name__ == "__main__":
     # This allows us to use a plain HTTP callback
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
-    app.run(debug=True)
+    application.run(debug=True)
