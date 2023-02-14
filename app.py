@@ -5,6 +5,7 @@ import os
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 dotenv.load_dotenv(dotenv.find_dotenv())
 client_id = os.getenv('client_id')
 client_secret = os.getenv('client_secret')
