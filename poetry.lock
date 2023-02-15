@@ -182,6 +182,17 @@ setproctitle = ["setproctitle"]
 tornado = ["tornado (>=0.2)"]
 
 [[package]]
+name = "hashlib"
+version = "20081119"
+description = "Secure hash and message digest algorithm library"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "hashlib-20081119.zip", hash = "sha256:419de2fd10ae71ed9c6adcb55903f116abd1d8acc8c814dfd5f839b4d5013e38"},
+]
+
+[[package]]
 name = "idna"
 version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -447,4 +458,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "520cfe25738db91c0109b0ef5b26cd0ec5342c443a748c4fb8afd7120ed05a74"
+content-hash = "d64d68710cb168883124215bddaa6bcf0023439ffd5f16498a73ff46ba9ec117"
