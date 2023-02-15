@@ -11,11 +11,17 @@ client_id = os.getenv('client_id')
 client_secret = os.getenv('client_secret')
 auth_base_url = 'https://www.etsy.com/oauth/connect'
 token_url = 'https://api.etsy.com/v3/public/oauth/token'
+scope = 'transactions_r%20transactions_w'
+redirect_uri = 'https://flask-etsyapi-production.up.railway.app/callback'
+code_challenge_method = 'S256'
+code_challenge = 'DSWlW2Abh-cf8CeLL8-g3hQ2WQyYdKyiu83u_s7nRhI'
+
+
 
 
 @application.route('/')
 def index():
-    etsy = OAuth2Session(client_id)
+    etsy = OAuth2Session(redirect_uri, scope, client_id, code_challenge, code_challenge_method)
     auth_url, state = etsy.authorization_url(auth_base_url)
     session['oauth_state'] = state
     return redirect(auth_url)
