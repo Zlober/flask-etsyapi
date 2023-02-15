@@ -21,7 +21,13 @@ code_challenge = 'DSWlW2Abh-cf8CeLL8-g3hQ2WQyYdKyiu83u_s7nRhI'
 
 @application.route('/')
 def index():
-    etsy = OAuth2Session(redirect_uri, scope, client_id, code_challenge, code_challenge_method)
+    etsy = OAuth2Session(
+        redirect_uri=redirect_uri,
+        scope=scope,
+        client_id=client_id,
+        code_challenge=code_challenge,
+        code_challenge_method=code_challenge_method,
+    )
     auth_url, state = etsy.authorization_url(auth_base_url)
     session['oauth_state'] = state
     return redirect(auth_url)
